@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function error() {
+    echo "\033[0;31m[X] Error: $1\033[0m"
+}
+
 function create() {
     if [[ $2 == "" ]]; then
       error "Please specify the name of the root to create"
