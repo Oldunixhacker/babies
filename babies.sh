@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function error() {
-    echo "\033[0;31m[X] Error: $1\033[0m"
+    echo -e "\033[0;31m[X] Error: $1\033[0m"
 }
 
 function create() {
