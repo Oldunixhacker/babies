@@ -10,6 +10,7 @@ function create() {
       return
     fi
     mkdir -p ~/.babies/roots/"$1"
+    mkdir -p ~/.babies/roots/"$1"/usr/bin
     cp /usr/bin/busybox "$1"/usr/bin/busybox
     for cmd in $(busybox --list); do
         echo '#!/usr/bin/env busybox ash' > "$1"/usr/bin/$cmd
