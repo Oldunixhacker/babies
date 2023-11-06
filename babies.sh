@@ -21,6 +21,7 @@ function create() {
     done
     cp /usr/bin/python3 $BABIES_ROOT/usr/bin/python3
     ln -s $BABIES_ROOT/usr/bin/python3 $BABIES_ROOT/usr/bin/python
+    ln -s $BABIES_ROOT/usr/bin $BABIES_ROOT/bin
     echo "Note: by default the auto-generated BusyBox-based Babies OS is installed."
     echo "Binaries from your system were copied from the system to the root."
     echo "Append --no-busybox to any future create commands to install the root without any binaries."
