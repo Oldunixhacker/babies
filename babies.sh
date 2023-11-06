@@ -9,17 +9,18 @@ function create() {
       error "Please specify the name of the root to create"
       return
     fi
-    mkdir -p ~/.babies/roots/"$1"
-    mkdir -p ~/.babies/roots/"$1"/usr/bin
-    cp /usr/bin/busybox "$1"/usr/bin/busybox
+    export BABIES_ROOT="~/.babies/roots/$1"
+    mkdir -p $BABIES_ROOT
+    mkdir -p $BABIES_ROOT/usr/bin
+    cp /usr/bin/busybox $BABIES_ROOT/usr/bin/busybox
     for cmd in $(busybox --list); do
-        echo '#!/usr/bin/env busybox ash' > "$1"/usr/bin/$cmd
-        echo "# Babies Root OS - BusyBox wrapper for $cmd" >> "$1"/usr/bin/$cmd
-        echo "busybox $cmd" >> "$1"/usr/bin/$cmd
-        chmod +x "$1"/usr/bin/$cmd
+        echo '#!/usr/bin/env busybox ash' > $BABIES_ROOT/usr/bin/$cmd
+        echo "# Babies Root OS - BusyBox wrapper for $cmd" >> $BABIES_ROOT/usr/bin/$cmd
+        echo "busybox $cmd" >> $BABIES_ROOT/usr/bin/$cmd
+        chmod +x $BABIES_ROOT/usr/bin/$cmd
     done
-    cp /usr/bin/python3 "$1"/usr/bin/python3
-    ln -s "$1"/usr/bin/python3 "$1"/usr/bin/python
+    cp /usr/bin/python3 $BABIES_ROOT/usr/bin/python3
+    ln -s $BABIES_ROOT/usr/bin/python3 $BABIES_ROOT/usr/bin/python
     echo "Note: by default the auto-generated BusyBox-based Babies OS is installed."
     echo "Binaries from your system were copied from the system to the root."
     echo "Append --no-busybox to any future create commands to install the root without any binaries."
