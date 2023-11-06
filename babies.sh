@@ -5,28 +5,28 @@ function error() {
 }
 
 function create() {
-    if [[ $2 == "" ]]; then
+    if [ $1 == "" ]; then
       error "Please specify the name of the root to create"
       return
     fi
-    mkdir -p ~/.babies/roots/"$2"
-    cp /usr/bin/busybox "$2"/usr/bin/busybox
+    mkdir -p ~/.babies/roots/"$1"
+    cp /usr/bin/busybox "$1"/usr/bin/busybox
     for cmd in $(busybox --list); do
-        echo '#!/usr/bin/env busybox ash' > "$2"/usr/bin/$cmd
-        echo "# Babies Root OS - BusyBox wrapper for $cmd" >> "$2"/usr/bin/$cmd
-        echo "busybox $cmd" >> "$2"/usr/bin/$cmd
-        chmod +x "$2"/usr/bin/$cmd
+        echo '#!/usr/bin/env busybox ash' > "$1"/usr/bin/$cmd
+        echo "# Babies Root OS - BusyBox wrapper for $cmd" >> "$1"/usr/bin/$cmd
+        echo "busybox $cmd" >> "$1"/usr/bin/$cmd
+        chmod +x "$1"/usr/bin/$cmd
     done
-    cp /usr/bin/python3 "$2"/usr/bin/python3
-    ln -s "$2"/usr/bin/python3 "$2"/usr/bin/python
+    cp /usr/bin/python3 "$1"/usr/bin/python3
+    ln -s "$1"/usr/bin/python3 "$1"/usr/bin/python
     echo "Note: by default the auto-generated BusyBox-based Babies OS is installed."
-    echo "Binaries from your system were copied from the system to the root."udo -kp "babies: Type %u's password: " apt
+    echo "Binaries from your system were copied from the system to the root."
     echo "Append --no-busybox to any future create commands to install the root without any binaries."
     echo "Please note the root won't work out of the box and binaries will need to be copied manually."
 }
 
 function runroot() {
-    sudo -kp "babies: Type %u's password: " chroot ~/.babies/roots/"$2" $3
+    sudo -kp "babies: Type %u's password: " chroot ~/.babies/roots/"$1" $2
 }
 
 if [[ $1 == "create" ]]; then
