@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function bsudo() {
+    sudo -kp "babies: Type %u's password: " $@
+}
+
 function error() {
     echo -e "\033[0;31m[X] Error: $1\033[0m"
 }
@@ -12,7 +16,7 @@ function create() {
     export BABIES_ROOT="~/.babies/roots/$1"
     mkdir -p $BABIES_ROOT
     mkdir -p $BABIES_ROOT/usr/bin
-    busybox --install $BABIES_ROOT
+    bsudo busybox --install $BABIES_ROOT/usr/bin
     cp /usr/bin/python3 $BABIES_ROOT/usr/bin/python3
     ln -s $BABIES_ROOT/usr/bin/python3 $BABIES_ROOT/usr/bin/python
     ln -s $BABIES_ROOT/usr/bin $BABIES_ROOT/bin
@@ -23,7 +27,7 @@ function create() {
 }
 
 function runroot() {
-    sudo -kp "babies: Type %u's password: " chroot ~/.babies/roots/"$1" $2
+    bsudo chroot ~/.babies/roots/"$1" $2
 }
 
 if [[ $1 == "create" ]]; then
