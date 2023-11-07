@@ -12,13 +12,7 @@ function create() {
     export BABIES_ROOT="~/.babies/roots/$1"
     mkdir -p $BABIES_ROOT
     mkdir -p $BABIES_ROOT/usr/bin
-    cp /usr/bin/busybox $BABIES_ROOT/usr/bin/busybox
-    for cmd in $(busybox --list); do
-        echo '#!/usr/bin/env busybox ash' > $BABIES_ROOT/usr/bin/$cmd
-        echo "# Babies Root OS - BusyBox wrapper for $cmd" >> $BABIES_ROOT/usr/bin/$cmd
-        echo "busybox $cmd" >> $BABIES_ROOT/usr/bin/$cmd
-        chmod +x $BABIES_ROOT/usr/bin/$cmd
-    done
+    busybox --install $BABIES_ROOT
     cp /usr/bin/python3 $BABIES_ROOT/usr/bin/python3
     ln -s $BABIES_ROOT/usr/bin/python3 $BABIES_ROOT/usr/bin/python
     ln -s $BABIES_ROOT/usr/bin $BABIES_ROOT/bin
