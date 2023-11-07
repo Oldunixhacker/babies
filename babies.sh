@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function bsudo() {
-    sudo -kp "babies: Type %u's password: " $@
+    sudo -kp "babies: Type %u's password: " $@ || command $@
 }
 
 function error() {
@@ -13,7 +13,7 @@ function create() {
       error "Please specify the name of the root to create"
       return
     fi
-    export BABIES_ROOT="~/.babies/roots/$1"
+    export BABIES_ROOT="$HOME/.babies/roots/$1"
     mkdir -p $BABIES_ROOT
     mkdir -p $BABIES_ROOT/usr/bin
     bsudo busybox --install $BABIES_ROOT/usr/bin
